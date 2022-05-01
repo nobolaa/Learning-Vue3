@@ -26,8 +26,14 @@
             template: `
                 <form  @submit.prevent="handleSubmit">
                     <h1>{{ title }}</h1>
-                    <custom-input :label="emailLabel" v-model="email"/>
-                    <custom-input label="Password: "  v-model="password"/>
+                    <custom-input 
+                        v-for="(input, i) in inputs" 
+                        :key="i" 
+                        :label="input.label" 
+                        :value="input.value" 
+                        :type="input.type" 
+                        v-model=input.value
+                    />
                     <button class="ml-1" type="submit">Login</button>
                 </form>
             `,
@@ -39,15 +45,26 @@
             data(){
                 return{
                     title: 'Login Form',
-                    email: '',
-                    password: '',
-                    emailLabel: 'Email: ',
+                    inputs: [
+                        {
+                            label: 'Email: ',
+                            value: '',
+                            type: 'email'
+                        },
+                        {
+                            label: 'Password: ',
+                            value: '',
+                            type: 'password'
+                        },
+                    ],
                 }
             },
 
             methods:{
                 handleSubmit(){
-                    console.log(this.email, this.password);
+                    this.inputs.forEach(input => {
+                        console.log(input.value);
+                    });
                 }
             }
         });
@@ -55,11 +72,11 @@
             template: `
                 <label>
                     {{label}}
-                    <input type="text" v-model="inputValue"/>
+                    <input :type="type" v-model="inputValue"/>
                 </label>
             `,
 
-            props: ['label', 'type', 'modelValue'],
+            props: ['label', 'type', 'value', 'modelValue'],
             computed: {
                 inputValue:{
                     get(){
