@@ -10,17 +10,12 @@
 <body>
     <div id="app" v-cloak>
         {{ greeting }}
-        <input v-model="greeting" />
+        <input @keyup.enter="greet(greeting + '!!!')" v-model="greeting" />
 
         <hr>
 
-        <div class="box bg-red" v-show="isVisible"></div> <!-- its in the dom with display:none -->
-
-        <hr>
-
+        <button @click="toggleBox">Toggle box</button>
         <div class="box bg-red" v-if="isVisible"></div>
-        <div class="box bg-purple" v-else-if="isVisible2"></div>
-        <div class="box bg-green" v-else></div>
     </div>
 
     <script src="https://unpkg.com/vue@3"></script>
@@ -30,7 +25,14 @@
                 return {
                     greeting: 'Hello Vue3!',
                     isVisible: false,
-                    isVisible2: true
+                }
+            },
+            methods:{
+                toggleBox(){
+                    this.isVisible = !this.isVisible;
+                },
+                greet(greeting){
+                    console.log(greeting);
                 }
             }
         });
