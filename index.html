@@ -9,13 +9,7 @@
 </head>
 <body>
     <div id="app" v-cloak>
-        {{ greeting }}
-        <input @keyup.enter="greet(greeting + '!!!')" v-model="greeting" />
-
-        <hr>
-
-        <button @click="toggleBox">Toggle box</button>
-        <div class="box bg-red" v-if="isVisible"></div>
+        <login-form />
     </div>
 
     <script src="https://unpkg.com/vue@3"></script>
@@ -23,16 +17,32 @@
         let app = Vue.createApp({
             data: function() {
                 return {
-                    greeting: 'Hello Vue3!',
-                    isVisible: false,
                 }
             },
             methods:{
-                toggleBox(){
-                    this.isVisible = !this.isVisible;
-                },
-                greet(greeting){
-                    console.log(greeting);
+            }
+        });
+        app.component('login-form', {
+            template: `
+                <form  @submit.prevent="handleSubmit">
+                    <h1>{{ title }}</h1>
+                    <input type="email" v-model="email"/>
+                    <input type="password" v-model="password"/>
+                    <button class="ml-1" type="submit">Login</button>
+                </form>
+            `,
+
+            data(){
+                return{
+                    title: 'Login Form',
+                    email: '',
+                    password: '',
+                }
+            },
+
+            methods:{
+                handleSubmit(){
+                    console.log(this.email, this.password);
                 }
             }
         });

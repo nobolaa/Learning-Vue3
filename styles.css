@@ -18,3 +18,12 @@
 [v-cloak]{
     display:none;
 }
+
+input{
+    margin: 10px;
+    display: block;
+}
+
+.ml-1{
+    margin-left: 10px;
+}
