@@ -4,11 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Vue 3 Basics</title>
 </head>
 <body>
-    <div id="app">
+    <div id="app" v-cloak>
         {{ greeting }}
+        <input v-model="greeting" />
+
+        <hr>
+
+        <div class="box bg-red" v-show="isVisible"></div> <!-- its in the dom with display:none -->
+
+        <hr>
+
+        <div class="box bg-red" v-if="isVisible"></div>
+        <div class="box bg-purple" v-else-if="isVisible2"></div>
+        <div class="box bg-green" v-else></div>
     </div>
 
     <script src="https://unpkg.com/vue@3"></script>
@@ -16,7 +28,9 @@
         let app = Vue.createApp({
             data: function() {
                 return {
-                    greeting: 'Hello Vue3!'
+                    greeting: 'Hello Vue3!',
+                    isVisible: false,
+                    isVisible2: true
                 }
             }
         });
